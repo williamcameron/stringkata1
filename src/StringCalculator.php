@@ -15,6 +15,19 @@ class StringCalculator
         return array_sum($numbers);
     }
 
+    private function convertToArray(String $string) : array {
+        $delimiters = ["\n"];
+        if($this->customDelimiters($string)){
+            $delimiters[] = substr($string, 2, 1);
+            $string = substr($string, 4);
+        }
+
+        foreach($delimiters as $delimiter){
+            $string = str_replace($delimiter,",",$string);
+        }
+        return explode(",", $string);
+    }
+
     private function validateNumbers($numbers):array{
         $returnMe = [];
         foreach($numbers as $number){
@@ -27,16 +40,7 @@ class StringCalculator
         return $returnMe;
     }
 
-    private function convertToArray(String $string) : array {
-        $delimiters = ["\n"];
-        if(substr($string, 0, 2) == "//"){
-            $delimiters[] = substr($string, 2, 1);
-            $string = substr($string, 4);
-        }
-
-        foreach($delimiters as $delimiter){
-            $string = str_replace($delimiter,",",$string);
-        }
-        return explode(",", $string);
+    private function customDelimiters($string){
+        return (bool) (substr($string, 0, 2) == "//");
     }
 }
