@@ -38,4 +38,20 @@ class StringTest extends TestCase
     public function numbers_with_newline_seperator_returns_sum(){
         $this->assertEquals(6, $this->stringCalculator->add("1\n2,3"));
     }
+
+    /** @test */
+    public function test_delimiter_works_with_semicolons(){
+        $this->assertEquals(3, $this->stringCalculator->add("//;\n1;2"));
+    }
+
+    /** 
+      * @test
+      * @expectedException Exception
+      * @expectedExceptionMessage negatives not allowed 
+      */
+    public function negative_numbers_throw_an_exception(){
+        $this->stringCalculator->add("-1");
+
+        $this->fail("Passed a negative number,did not fail when supposed too.");
+    }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="vendor/autoload.php"
-         colors="true"
          stopOnFailure="false">
     <testsuites>
         <testsuite name="My Test Suite">
@@ -15,8 +14,8 @@
             </exclude>
         </whitelist>
     </filter>
-    <logging>
+    <!-- <logging>
         <log type="coverage-clover" target="clover.xml"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
-    </logging>
+    </logging> -->
 </phpunit>

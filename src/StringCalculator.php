@@ -8,17 +8,32 @@
  */
 class StringCalculator
 {
-
-    /**
-     * StringCalculator constructor.
-     */
-    public function __construct()
-    {
-    }
-
     public function add($string)
     {
-        $string = str_replace("\n",",",$string);
-        return array_sum(explode(",", $string));
+        $numbers = $this->convertToArray($string);
+        $this->checkForNegativeNumbers($numbers);
+        return array_sum($numbers);
     }
+
+    private function convertToArray(String $string) : array {
+        $delimiters = ["\n"];
+        if(substr($string, 0, 2) == "//"){
+            $delimiters[] = substr($string, 2, 1);
+            $string = substr($string, 4);
+        }
+
+        foreach($delimiters as $delimiter){
+            $string = str_replace($delimiter,",",$string);
+        }
+        return explode(",", $string);
+    }
+
+    private function checkForNegativeNumbers($numbers) {
+        foreach($numbers as $number){
+            if($number<0){
+                throw new \Exception("negatives not allowed");
+            }
+        }
+    }
+
 }
