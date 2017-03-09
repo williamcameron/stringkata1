@@ -11,8 +11,20 @@ class StringCalculator
     public function add($string)
     {
         $numbers = $this->convertToArray($string);
-        $this->checkForNegativeNumbers($numbers);
+        $numbers = $this->validateNumbers($numbers);
         return array_sum($numbers);
+    }
+
+    private function validateNumbers($numbers):array{
+        $returnMe = [];
+        foreach($numbers as $number){
+            if($number<0){
+                throw new \Exception("negatives not allowed");
+            }elseif($number<=1000){
+                $returnMe[]=$number;
+            }
+        }
+        return $returnMe;
     }
 
     private function convertToArray(String $string) : array {
@@ -27,13 +39,4 @@ class StringCalculator
         }
         return explode(",", $string);
     }
-
-    private function checkForNegativeNumbers($numbers) {
-        foreach($numbers as $number){
-            if($number<0){
-                throw new \Exception("negatives not allowed");
-            }
-        }
-    }
-
 }

@@ -51,7 +51,11 @@ class StringTest extends TestCase
       */
     public function negative_numbers_throw_an_exception(){
         $this->stringCalculator->add("-1");
-
         $this->fail("Passed a negative number,did not fail when supposed too.");
+    }
+
+    /** @test */
+    public function numbers_over_1000_are_ignored(){
+        $this->assertEquals(2, $this->stringCalculator->add("2,1001"));
     }
 }
